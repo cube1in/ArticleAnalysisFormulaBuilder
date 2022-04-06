@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFrameworks>net6.0-windows;net48</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <LangVersion>10</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+        <PackageReference Include="PropertyChanged.Fody" Version="3.4.0">
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Resource Include="Answers/**" />
+    </ItemGroup>
+
+</Project>
