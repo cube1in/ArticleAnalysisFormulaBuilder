@@ -11,22 +11,6 @@
         Title="资料分析公式生成器"
         Height="450"
         Width="800">
-    <Window.Resources>
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="16" />
-        </Style>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="FontSize" Value="16" />
-        </Style>
-        <Style TargetType="{x:Type ToggleButton}">
-            <Setter Property="FontSize" Value="16" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsPressed, ElementName=BuildButton}" Value="True">
-                    <Setter Property="IsChecked" Value="False" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
@@ -44,42 +28,61 @@
             <TextBlock HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Margin="0 0 20 0"
+                       FontSize="16"
                        Text="求：" />
-            <TextBlock HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       FontWeight="Bold"
-                       Text="{Binding Request}" />
+            <ComboBox ItemsSource="{Binding Requests}"
+                      SelectedItem="{Binding Request}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ComboBoxItem FontSize="15"
+                                      Content="{Binding}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Margin="0 0 20 0"
+                       FontSize="16"
                        Text="已知：" />
-            <TextBlock HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Margin="0 0 20 0"
-                       FontWeight="Bold"
-                       Text="{Binding Condition1}" />
-            <TextBlock HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       FontWeight="Bold"
-                       Text="{Binding Condition2}" />
+            <ComboBox ItemsSource="{Binding Conditions1}"
+                      SelectedItem="{Binding Condition1}"
+                      Margin="0 0 20 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ComboBoxItem FontSize="15"
+                                      Content="{Binding}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <ComboBox ItemsSource="{Binding Conditions2}"
+                      SelectedItem="{Binding Condition2}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ComboBoxItem FontSize="15"
+                                      Content="{Binding}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <ToggleButton x:Name="ToggleButton"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Center"
                           Margin="0 0 20 0"
-                          Content="显示答案" />
+                          Content="显示答案"
+                          IsChecked="{Binding IsPressed, Mode=OneWay, ElementName=BuildButton, Converter={local:ClickedConverter}}" />
             <Button x:Name="BuildButton"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Command="{Binding BuildCommand}"
-                    Content="再来一次" />
+                    Content="随机生成" />
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <TextBlock Text="答案：" />
+            <TextBlock FontSize="16" Text="答案：" />
             <Image Visibility="{Binding IsChecked, ElementName=ToggleButton, Converter={local:BooleanConverter}}"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
